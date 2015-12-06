@@ -42,7 +42,7 @@ def group_member(request):
             try:
                 for person in people:
                     try:
-                        msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status,
+                        msg += '{0}, {1}, {2}, {3},'.format(person.email_addr, person.user_name, person.project_status,
                                                 PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
                     except PersonalInfo.DoesNotExist:
                         continue
