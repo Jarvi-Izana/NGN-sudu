@@ -27,14 +27,14 @@ def group_member(request):
         try:
             email_addr = request.POST['email_addr']
             project_name = request.POST['project_name']
-            return HttpResponse(project_name)
         except KeyError:
             return HttpResponseNotAllowed('')
-
-        # try:
-        #     status = PersonalInfo.objects.get(email_addr=email_addr).status
-        # except PersonalInfo.DoesNotExist:
-        #     return HttpResponseNotAllowed('')
+        try:
+            user = PersonalInfo.objects.get(email_addr=email_addr)
+            status = user.status
+            return HttpResponse(status)
+        except PersonalInfo.DoesNotExist:
+            return HttpResponseNotAllowed('')
         #
         # if status:
         #     people = ProjectInfo.objects.filter(project_name=project_name)
@@ -67,7 +67,7 @@ def personal_project(request):
             msg += ' }'
             return  HttpResponse(msg)
         else:
-            return HttpResponseNotAllowed()
+            return HttpResponseNotAllowed('')
     else:
         raise Http404('ERROR: METHOD POST EXPECTED')
 
