@@ -42,7 +42,8 @@ def group_member(request):
             for person in people:
                 # msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status,
                 #                             PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
-                msg += PersonalInfo.objects.get(email_addr=person.email_addr).token
+
+                msg += PersonalInfo.objects.get(email_addr=person.email_addr)
             return HttpResponse(msg)
         else:
             return HttpResponseNotAllowed('NOT LOGIN')
