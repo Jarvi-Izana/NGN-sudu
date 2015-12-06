@@ -32,12 +32,11 @@ def group_member(request):
         try:
             user = PersonalInfo.objects.get(email_addr=email_addr)
             status = user.status
-            return HttpResponse(status)
         except PersonalInfo.DoesNotExist:
             return HttpResponseNotAllowed('')
-        #
-        # if status:
-        #     people = ProjectInfo.objects.filter(project_name=project_name)
+        if status:
+            people = ProjectInfo.objects.filter(project_name=project_name)
+            return HttpResponse(people)
         #     if not people:
         #         return HttpResponse('ERROR: NO SUCH PROJECT')
         #     msg = ''
