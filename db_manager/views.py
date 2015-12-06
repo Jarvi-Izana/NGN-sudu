@@ -36,16 +36,15 @@ def group_member(request):
             return HttpResponseNotAllowed('')
         if status:
             people = ProjectInfo.objects.filter(project_name=project_name)
-            return HttpResponse(people)
-        #     if not people:
-        #         return HttpResponse('ERROR: NO SUCH PROJECT')
-        #     msg = ''
-        #     for person in people:
-        #         msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status,
-        #                                     PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
-        #     return HttpResponse(msg)
-        # else:
-        #     return HttpResponseNotAllowed('NOT LOGIN')
+            if not people:
+                return HttpResponse('ERROR: NO SUCH PROJECT')
+            msg = ''
+            for person in people:
+                msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status,
+                                            PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
+            return HttpResponse(msg)
+        else:
+            return HttpResponseNotAllowed('NOT LOGIN')
     else:
         # reverse the format of the web.
         ip = get_ip(request)
