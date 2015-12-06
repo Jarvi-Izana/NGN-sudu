@@ -65,10 +65,9 @@ def personal_project(request):
         user = PersonalInfo.objects.get(email_addr=request.POST['email_addr'])
         if user.status:
             user = user.personalproject_set.all()
-            msg = '{ '
+            msg = ''
             for item in user:
                 msg += item.project_name + ' , '
-            msg += ' }'
             return  HttpResponse(msg)
         else:
             return HttpResponseNotAllowed('')
