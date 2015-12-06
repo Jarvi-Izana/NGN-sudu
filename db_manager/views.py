@@ -67,7 +67,7 @@ def personal_project(request):
             user = user.personalproject_set.all()
             msg = ''
             for item in user:
-                msg += item.project_name + ' , '
+                msg += item.project_name + ','
             return  HttpResponse(msg)
         else:
             return HttpResponseNotAllowed('')
