@@ -41,10 +41,11 @@ def group_member(request):
             msg = ''
             try:
                 for person in people:
-                    user = PersonalInfo.objects.get(email_addr__exact=person.email_addr)
-
-                    # msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status, user.token)
-                    msg += user.token
+                    try:
+                        msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status,
+                                                PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
+                    except PersonalInfo.DoesNotExist:
+                        continue
                 return HttpResponse(msg)
             except Exception as e:
                 return HttpResponse(e)
