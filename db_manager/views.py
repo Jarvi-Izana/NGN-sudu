@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import PersonalInfo, ProjectInfo
 from django.utils import timezone
 from django.http import HttpResponse, Http404, HttpResponseNotAllowed
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def index(request):
@@ -20,17 +21,18 @@ def get_ip(request):
     return ip
 
 # correct. the key word for querying is the project_name
+@csrf_exempt
 def group_member(request):
     if request.method == 'POST':
         try:
             email_addr = request.POST['email_addr']
             project_name = request.POST['project_name']
         except KeyError:
-            return HttpResponseNotAllowed()
+            return HttpResponseNotAllowed('')
         try:
             status = PersonalInfo.objects.get(email_addr=email_addr).status
         except PersonalInfo.DoesNotExist:
-            return HttpResponseNotAllowed()
+            return HttpResponseNotAllowed('')
         if status:
             people = ProjectInfo.objects.filter(project_name=project_name)
             if not people:
@@ -50,6 +52,7 @@ def group_member(request):
 
 # each person at least have one project. and use this API to trace his project.
 # correct
+@csrf_exempt
 def personal_project(request):
     if request.method == 'POST':
         user = PersonalInfo.objects.get(email_addr=request.POST['email_addr'])
@@ -66,6 +69,7 @@ def personal_project(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 # correct
+@csrf_exempt
 def register_with_project(request):
     if request.method == 'POST':
         try:
@@ -93,6 +97,7 @@ def register_with_project(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 #
+@csrf_exempt
 def unregister(request):
     if request.method == 'POST':
         try:
@@ -114,6 +119,7 @@ def unregister(request):
 
 # add project for one person at a time, the entry (email, project_name) should be unique.
 #
+@csrf_exempt
 def add_project(request):
     if request.method == 'POST':
         try:
@@ -133,6 +139,7 @@ def add_project(request):
         return HttpResponseNotAllowed('ERROR: METHOD POST EXPECTED')
 
 # correct
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         try:
@@ -156,6 +163,7 @@ def login(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 # correct
+@csrf_exempt
 def logout(request):
     if request.method == 'POST':
         try:
@@ -171,6 +179,7 @@ def logout(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 # correct
+@csrf_exempt
 def finish(request):
     if request.method == 'POST':
         try:
@@ -189,6 +198,7 @@ def finish(request):
 
 
 # correct
+@csrf_exempt
 def quit_project(request):
     if request.method == 'POST':
         try:
