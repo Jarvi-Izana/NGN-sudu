@@ -39,12 +39,15 @@ def group_member(request):
             if not people:
                 return HttpResponse('ERROR: NO SUCH PROJECT')
             msg = ''
-            for person in people:
-                user = PersonalInfo.objects.get(email_addr__exact=person.email_addr)
+            try:
+                for person in people:
+                    user = PersonalInfo.objects.get(email_addr__exact=person.email_addr)
 
-                # msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status, user.token)
-                msg += user.token
-            return HttpResponse(msg)
+                    # msg += '{0}, {1}, {2}, {3}\n'.format(person.email_addr, person.user_name, person.project_status, user.token)
+                    msg += user.token
+                return HttpResponse(msg)
+            except Exception as e:
+                return HttpResponse(e)
         else:
             return HttpResponseNotAllowed('NOT LOGIN')
     else:
