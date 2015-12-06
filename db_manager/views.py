@@ -27,14 +27,15 @@ def group_member(request):
         try:
             email_addr = request.POST['email_addr']
             project_name = request.POST['project_name']
+            return HttpResponse(email_addr, project_name)
         except KeyError:
             return HttpResponseNotAllowed('')
 
-        try:
-            status = PersonalInfo.objects.get(email_addr=email_addr).status
-        except PersonalInfo.DoesNotExist:
-            return HttpResponseNotAllowed('')
-        return HttpResponse(status)
+        # try:
+        #     status = PersonalInfo.objects.get(email_addr=email_addr).status
+        # except PersonalInfo.DoesNotExist:
+        #     return HttpResponseNotAllowed('')
+        #
         # if status:
         #     people = ProjectInfo.objects.filter(project_name=project_name)
         #     if not people:
