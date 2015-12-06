@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How to Use</title>
+</head>
+<body>
+    <h2>SAMPLE CODE BASE ON PYTHON, FORMAT SHOULD BE JSON</h2>
+    <h3>FORMAT SAMPLE</h3>
+        <p>{</p>
+            <p>'email_addr':'woo@columbia.edu', # MUST UNIQUE</p>
+            'password':'woo',
+            'user_name': 'woo',
+            <p>'token':'12345'</p>
+            <p>'project_name':'sudu'</p>
+        <p>}</p>
+<p>NOTICE: 404 meaning the object can't be found. The 405 meaning the request cannot be handled. 200 meaning the all is well.</p>
+        <li>/sudu6770/</li>
+            <p>GET: Brief introduction about SUDU</p>
+        <li>/sudu6770/register/</li>
+            <p>POST: register a user, after login, the login status is True, invisible by client.</p>
+            <p>SAMPLE: response = client.post('/sudu6770/register/', {'user_name': 'woo', 'email_addr': 'woo@columbia.edu', 'password':'woo', 'token':'12345', 'project_name': 'sudu'})</p>
+        <li>/sudu6770/login/</li>
+            <p style="color: red"><strong>ALL THE REST COMMANDS WILL TAKE INTO EFFECT AFTER LOGIN. IP ADN ONLINE COOKIE WILL BE TRACED.</strong></p>
+            <p>POST: login a user with JSON(user_name,password) or JSON(email_addr, password).</p>
+            <p>SAMPLE: response = client.post('/sudu6770/logout/', {'email_addr':'gui@gmail.com', 'password':'gui'});</p>
+        <li>/sudu6770/logout</li>
+            <p style="color: red"><strong>FOR SECURITY PURPOSE, PLEASE LOGOUT EVERY TIME</strong></p>
+            <p>POST: logout a user. The user online status will be set False.</p>
+        <li>/sudu6770/projeccts/</li>
+            <p><i><b>GET: test page, will show the client ip</b></i></p>
+            <p>POST: show group member, prerequisite: login. Show the members within same projects</p>
+            <p>SAMPLE: response = client.post('/sudu6770/projects/', {'email_addr': 'peng@gmail.com', 'project_name': 'sudu'})</p>
+        <li>sudu6770/projects/finish/</li>
+            <p>POST: finish a task, set project_status=True. This item is used to estimated the total procedure of the project.</p>
+            <p>SAMPLE: response = client.post('/sudu6770/projects/finish', {'email_addr':'gui@gmail.com', 'project_name':'sudu'});</p>
+        <li>sudu6770/projects/add/</li>
+            <p>POST: add yourself a task or invite others.</p>
+            <p>SAMPLE: response = client.post('/sudu6770/projects/add/', {'email_addr': 'woo@columbia.edu', 'project_name':'sudu'});</p>
+        <li>/sudu6770/projects/quit/</li>
+            <p>POST: quit from a project.</p>
+            <p>SAMPLE: response = client.post('/sudu6770/projects/quit/', {'email_addr': 'woo@columbia.edu', 'project_name':'sudu'});</p>
+        <li>/sudu6770/personal/</li>
+            <P>POST: query the user's all projects.</P>
+            <p>SAMPLE: response = client.post('/sudu6770/personal/', {'email_addr' : 'xi@columbia.edu'})</p>
+        <li>/sudu6770/unregister/</li>
+            <p>POST: unregister a user. Delete <strong>permanently</strong></p>
+            <p>SAMPLE: response = client.post('/sudu6770/unregister/', {'email_addr': 'woo@columbia.edu', 'password':'woo'});</p>
+    </ul>
+</body>
+</html>
