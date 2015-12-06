@@ -27,7 +27,7 @@ def group_member(request):
         try:
             email_addr = request.POST['email_addr']
             project_name = request.POST['project_name']
-            return HttpResponse(email_addr, project_name)
+            return HttpResponse(project_name)
         except KeyError:
             return HttpResponseNotAllowed('')
 
