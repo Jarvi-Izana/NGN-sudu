@@ -71,7 +71,7 @@ def personal_project(request):
             for item in user:
                 msg += item.project_name + ','
             # tail the last comma
-            if not msg:
+            if msg:
                 return  HttpResponse(msg[:-1])
             else:
                 return HttpResponse(msg)
@@ -170,7 +170,7 @@ def login(request):
                 user.save()
                 return HttpResponse('LOGIN SUCCESSFULLY')
             except KeyError:
-                return Http404()
+                raise Http404('INVALID USER BEHAVIOR')
     else:
         raise Http404('ERROR: METHOD POST EXPECTED')
 
