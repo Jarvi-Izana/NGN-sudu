@@ -46,7 +46,9 @@ def group_member(request):
                                                 PersonalInfo.objects.get(email_addr__exact=person.email_addr).token)
                     except PersonalInfo.DoesNotExist:
                         continue
-                return HttpResponse(msg)
+                return HttpResponse(msg[:-1])
+            except IndexError:
+                return Http404
             except Exception as e:
                 return HttpResponse(e)
         else:
@@ -68,7 +70,11 @@ def personal_project(request):
             msg = ''
             for item in user:
                 msg += item.project_name + ','
-            return  HttpResponse(msg)
+            # tail the last comma
+            if not msg:
+                return  HttpResponse(msg[:-1])
+            else:
+                return HttpResponse(msg)
         else:
             return HttpResponseNotAllowed('')
     else:
