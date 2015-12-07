@@ -10,8 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
-def affection(requset):
-    return render(requset, 'db_manager/bonus.html')
+def affection(request):
+    return render(request, 'db_manager/bonus.html')
 
 def detail(request):
     return render(request, 'db_manager/howtouse.html')
