@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from .models import PersonalInfo, ProjectInfo
