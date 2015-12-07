@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
-def affection(request):
+def love(request):
     return render(request, 'db_manager/bonus.html')
 
 def detail(request):
