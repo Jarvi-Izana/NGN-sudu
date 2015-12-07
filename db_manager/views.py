@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from .models import PersonalInfo, ProjectInfo
@@ -8,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     return render(request, 'index.html')
+
+def affection(requset):
+    return render(requset, 'db_manager/bonus.html')
 
 def detail(request):
     return render(request, 'db_manager/howtouse.html')
@@ -127,6 +131,8 @@ def unregister(request):
             for u in user:
                 u.delete()
         return HttpResponse('USER DELETED '+email_addr)
+    else:
+        return HttpResponse('YOU ARE AT'+request.path)
 
 
 # add project for one person at a time, the entry (email, project_name) should be unique.
@@ -140,7 +146,8 @@ def add_project(request):
         except KeyError:
             return HttpResponseNotAllowed('NOT ALLOWED')
         if ProjectInfo.objects.filter(email_addr=email_addr, project_name=project_name):
-            return HttpResponseNotAllowed()
+            # return HttpResponse('ERROR: PROJECT AND USER ALREADY EXIST!')
+            return HttpResponseNotAllowed('')
         user = get_object_or_404(PersonalInfo, email_addr=email_addr)
         user.personalproject_set.create(project_name=project_name)
         ProjectInfo(email_addr=email_addr, user_name=user.user_name,
