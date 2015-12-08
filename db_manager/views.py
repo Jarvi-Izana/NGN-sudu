@@ -84,7 +84,7 @@ def personal_project(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 # correct
-@csrf_exempt
+# @csrf_exempt
 def register_with_project(request):
     if request.method == 'POST':
         try:
@@ -181,7 +181,7 @@ def login(request):
         raise Http404('ERROR: METHOD POST EXPECTED')
 
 # correct
-@csrf_exempt
+# @csrf_exempt
 def logout(request):
     if request.method == 'POST':
         try:
